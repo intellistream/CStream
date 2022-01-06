@@ -1,0 +1,2 @@
+/home/tony/.espressif/tools/xtensa-esp32s2-elf/esp-2020r3-8.4.0/xtensa-esp32s2-elf/bin/xtensa-esp32s2-elf-ar qc libcfp.a CMakeFiles/__idf_cfp.dir/cfp.c.obj CMakeFiles/__idf_cfp.dir/tdppack.c.obj CMakeFiles/__idf_cfp.dir/u32frame.c.obj
+/home/tony/.espressif/tools/xtensa-esp32s2-elf/esp-2020r3-8.4.0/xtensa-esp32s2-elf/bin/xtensa-esp32s2-elf-ranlib libcfp.a

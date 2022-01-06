@@ -1,0 +1,20 @@
+{
+  "configurations": [
+    {
+      "name": "Linux",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "/home/tony/esp/esp-idf-v3.3.1/components/TonyMathlIB/include",
+        "/home/tony/esp/esp-idf-v3.3.1/components/.",
+        "/home/tony/文档/Gaia/headers",
+        "/home/tony/esp/esp-idf-v3.3.1/components/log/include"
+      ],
+      "defines": [],
+      "compilerPath": "/usr/bin/clang",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "clang-x64"
+    }
+  ],
+  "version": 4
+}

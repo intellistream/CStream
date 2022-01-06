@@ -1,0 +1,238 @@
+
+
+#ifndef ADB_INCLUDE_UTILS_PERFTOOL_HPP
+#define ADB_INCLUDE_UTILS_PERFTOOL_HPP
+#define PERF_ERROR(n) ADB_ERROR(n)
+#include <CommonData/CommonData.hpp>
+#include <Utils/UtilityFunctions.hpp>
+#include <sys/time.h>
+#include <assert.h>
+#include <fcntl.h>
+#include <inttypes.h>
+#include <math.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/syscall.h>
+#include <sys/types.h>
+#include <sys/ioctl.h>
+#include <sys/stat.h>
+#include <time.h>
+#include <unistd.h>
+#include <linux/perf_event.h>
+#include <signal.h>
+#include <memory.h>
+using namespace std;
+namespace ADB {
+#define __LIBPERF_MAX_COUNTERS 32
+#define __LIBPERF_ARRAY_SIZE(x) (sizeof(x)/sizeof(x[0]))
+enum perfTrace {
+  /* sw tracepoints */
+  COUNT_SW_CPU_CLOCK = 0,
+  COUNT_SW_TASK_CLOCK = 1,
+  COUNT_SW_CONTEXT_SWITCHES = 2,
+  COUNT_SW_CPU_MIGRATIONS = 3,
+  COUNT_SW_PAGE_FAULTS = 4,
+  COUNT_SW_PAGE_FAULTS_MIN = 5,
+  COUNT_SW_PAGE_FAULTS_MAJ = 6,
+
+  /* hw counters */
+  COUNT_HW_CPU_CYCLES = 7,
+  COUNT_HW_INSTRUCTIONS = 8,
+  COUNT_HW_CACHE_REFERENCES = 9,
+  COUNT_HW_CACHE_MISSES = 10,
+  COUNT_HW_BRANCH_INSTRUCTIONS = 11,
+  COUNT_HW_BRANCH_MISSES = 12,
+  COUNT_HW_BUS_CYCLES = 13,
+
+  /* cache counters */
+
+  /* L1D - data cache */
+  COUNT_HW_CACHE_L1D_LOADS = 14,
+  COUNT_HW_CACHE_L1D_LOADS_MISSES = 15,
+  COUNT_HW_CACHE_L1D_STORES = 16,
+  COUNT_HW_CACHE_L1D_STORES_MISSES = 17,
+  COUNT_HW_CACHE_L1D_PREFETCHES = 18,
+
+  /* L1I - instruction cache */
+  COUNT_HW_CACHE_L1I_LOADS = 19,
+  COUNT_HW_CACHE_L1I_LOADS_MISSES = 20,
+
+  /* LL - last level cache */
+  COUNT_HW_CACHE_LL_LOADS = 21,
+  COUNT_HW_CACHE_LL_LOADS_MISSES = 22,
+  COUNT_HW_CACHE_LL_STORES = 23,
+  COUNT_HW_CACHE_LL_STORES_MISSES = 24,
+
+  /* DTLB - data translation lookaside buffer */
+  COUNT_HW_CACHE_DTLB_LOADS = 25,
+  COUNT_HW_CACHE_DTLB_LOADS_MISSES = 26,
+  COUNT_HW_CACHE_DTLB_STORES = 27,
+  COUNT_HW_CACHE_DTLB_STORES_MISSES = 28,
+
+  /* ITLB - instructiont translation lookaside buffer */
+  COUNT_HW_CACHE_ITLB_LOADS = 29,
+  COUNT_HW_CACHE_ITLB_LOADS_MISSES = 30,
+
+  /* BPU - branch prediction unit */
+  COUNT_HW_CACHE_BPU_LOADS = 31,
+  COUNT_HW_CACHE_BPU_LOADS_MISSES = 32,
+
+  /* Special internally defined "counter" */
+  /* this is the _only_ floating point value */
+  //LIB_SW_WALL_TIME = 33
+};
+/*class:PerfEntry
+description:the entry record in PerfTool
+warnning: confict with the c version libperf
+
+date:202001013
+*/
+class PerfEntry {
+ public:
+  //struct perf_event_attr attr;
+  int fds;
+  bool addressable;
+  uint64_t prevVale;
+  PerfEntry() { addressable = false; }
+  ~PerfEntry() {}
+};
+/*class:PerfTool
+description: pack the perf in cpp style, remain safe if some std linux perf failed
+warnning: confict with the c version libperf
+
+date:202001013
+*/
+class PerfTool {
+ private:
+  /* data */
+  std::vector<PerfEntry> entries;
+  pid_t myPid;
+  int myCpu;
+  uint64_t prevValue;
+ public:
+  PerfTool() {
+
+  }
+  PerfTool(pid_t pid, int cpu);
+  // reading result from a perf trace on [ch], will return 0 if the channel is invaild
+  uint64_t readPerf(size_t ch);
+  // start the perf trace on [ch]
+  int startPerf(size_t ch);
+  // st the perf trace on [ch]
+  int stopPerf(size_t ch);
+  //check the addressability of [ch]
+  bool isValidChannel(size_t ch);
+  ~PerfTool();
+};
+typedef std::shared_ptr<PerfTool> PerfToolPtr;
+
+/*class:PerfPair
+description: perf together with tags
+
+date:202001016
+*/
+class PerfPair {
+ public:
+  int ref;
+  std::string name;
+  uint64_t record;
+  PerfPair(int _ref, string _name) {
+    ref = _ref;
+    name = _name;
+    record = 0;
+  }
+  ~PerfPair() {}
+};
+enum MEM_ACCESS_TYPE {
+  AC_U32 = 0,
+  AC_U64,
+  AC_U16,
+  AC_U8
+};
+/*class:threadPerf
+description: The all-in-on perf class for thread
+
+date:202001016
+*/
+class ThreadPerf {
+ protected:
+  string getChValueAsString(size_t idx);
+
+  PerfToolPtr myTool;
+  vector<PerfPair> pairs;
+  struct timeval tstart, tend;
+  uint64_t latency;
+  vector<double> memAccessTransitVec;
+ public:
+  ThreadPerf() {}
+  ThreadPerf(int cpu);
+  uint64_t getResultById(size_t idx);
+  uint64_t getRunTime(void) {
+    return UtilityFunctions::getRunningUs(tstart, tend);
+  };
+  uint64_t getResultByName(string name);
+  // IPM functions
+  // setup the transit vector
+  void setUpTransitVec(void);
+
+  //get the transit vector
+  vector<double> getTransitVec(void) {
+    return memAccessTransitVec;
+  }
+  //load the transit vector
+  void loadTransitVec(vector<double> a) {
+    memAccessTransitVec = a;
+  }
+  template<typename puType>
+  double testMem(uint32_t alignedSize) {
+    auto p1 = std::shared_ptr<puType>(new puType[alignedSize],
+                                      [](puType *p) {
+                                        delete[] p;
+                                      });
+    auto p2 = std::shared_ptr<uint32_t>(new uint32_t[alignedSize],
+                                        [](uint32_t *p) {
+                                          delete[] p;
+                                        });
+    puType *pt1 = p1.get();
+    uint32_t *pt2 = p2.get();
+    register uint32_t i;
+    gettimeofday(&tstart, NULL);
+    for (i = 0; i < alignedSize; i++) {
+
+      pt1[i] = 0xfe;
+    }
+    gettimeofday(&tend, NULL);
+    double t1 = getRunTime();
+    gettimeofday(&tstart, NULL);
+    for (i = 0; i < alignedSize; i++) {
+
+      pt2[i] = 0xfe;
+    }
+    gettimeofday(&tend, NULL);
+    double t2 = getRunTime();
+    return t1 / t2;
+  }
+  // get ipm 
+  double getIpm(length_t mtimes);
+  ~ThreadPerf() {
+
+  }
+  //start all registered perf
+  void start();
+  //end all registered perf
+  void end();
+  //the headString for printf
+  string headStringPrintf(void);
+  //for csv
+  string headStringCsv(void);
+  //for printf
+  string resultStringPrintf(void);
+  //for csv
+  string resultStringCsv(void);
+
+};
+}
+
+#endif

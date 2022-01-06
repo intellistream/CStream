@@ -1,0 +1,9 @@
+/cmake-build-debug/
+/cmake-build-release/
+/build/
+/*build/
+/.idea/
+/.vscode/
+/usr/
+commit
+com_scripts

@@ -1,0 +1,12 @@
+add_sources(
+        UtilityFunctions.cpp
+        TimeTestBench.cpp
+        FileSp.cpp
+        MemAddresser.cpp
+        PerfTool.cpp
+        Cpp11Clock.cpp
+)
+add_subdirectory(PlatformCUtils)
+add_subdirectory(MultiCore)
+add_subdirectory(Math)
+add_subdirectory(Meters)

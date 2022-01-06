@@ -1,0 +1,10 @@
+//
+// Created by Shuhao Zhang on 19/07/2021.
+//
+
+#ifndef ADB_INCLUDE_UTILS_STACKTRACELOADER_HPP_
+#define ADB_INCLUDE_UTILS_STACKTRACELOADER_HPP_
+
+void collectAndPrintStacktrace();
+
+#endif //ADB_INCLUDE_UTILS_STACKTRACELOADER_HPP_
