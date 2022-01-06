@@ -1,0 +1,14 @@
+#!/bin/bash
+emfun() {
+rm -rf b_$1
+cp -R b b_$1
+}
+emfun r32_1e4
+emfun r32_1e6
+emfun r32_1e7
+emfun r32_1e8
+#emfun 50
+
+
+    
+

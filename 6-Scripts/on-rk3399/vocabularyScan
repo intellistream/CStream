@@ -1,0 +1,19 @@
+#!/bin/bash
+emfun() {
+./benchmark $1 4 LLL LL partition6_amp 1
+./benchmark $1 4 LLL LB partition6_amp 1
+./benchmark $1 4 LLL BL partition6_amp 1
+./benchmark $1 4 LLL BB partition6_amp 1
+cp tcomp32*.csv b_$1/tcomp32
+cp lz4*.csv b_$1/lz4
+cp tdic32*.csv b_$1/tdic32
+}
+#emfun g64_1e8
+#emfun g64_1e10
+emfun g64_1e11
+emfun g64_1e12
+#emfun 50
+
+
+    
+
