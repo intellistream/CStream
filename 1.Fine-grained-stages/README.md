@@ -1,4 +1,4 @@
-# Aliancedb-ARM, fine-grained compression stages, including tcomp32, lz4 and tdic32
+# Fine-grained compression stages, including tcomp32, lz4 and tdic32
 
 ## Environment
 
