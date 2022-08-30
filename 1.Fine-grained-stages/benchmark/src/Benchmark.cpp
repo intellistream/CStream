@@ -3,6 +3,11 @@
  * Users will typically access this file to use the stream clustering algorithm.
  * We use this as the entry point for benchmarking.
  */
+/**
+ * @brief This is the main entry point of the entire program.
+ * Users will typically access this file to use the stream clustering algorithm.
+ * We use this as the entry point for benchmarking.
+ */
 
 #include <Utils/Logger.hpp>
 #include <Utils/TimeTestBench.hpp>
@@ -35,7 +40,7 @@
 using namespace std;
 using namespace ADB;
 using namespace FILE_SP;
-using namespace rigtorp;
+using namespace INTELLI;
 using namespace MATH_FUNC;
 int g_mainCpu;
 int fakeRatio;
@@ -159,7 +164,7 @@ LeastSquare lsm_s0(size,latencyS0);
 LeastSquare lsm_s1(size,latencyS1);
 printf("LL:\r\nstage0:%s,cor=%lf\r\nstage1:%s,cor=%lf\r\n",lsm_s0.getEquation().data(),lsm_s0.getCorelation(),lsm_s1.getEquation().data(),lsm_s1.getCorelation());
 }
-
+/*
 void testFakeOnly(string tag,
                   ADB::length_t inS,
                   ADB::length_t outS,
@@ -183,7 +188,8 @@ void testFakeOnly(string tag,
   printf("%dus:%ld-%ld\r\n", se->allRunTime, inS, se->outStream->numberOfBitsUsed / 8);
   pe->outputStages2Csv(tag + '_' + to_string(fakeRatio) + "_pe.csv");
   se->outputStages2Csv(tag + '_' + to_string(fakeRatio) + "_se.csv");
-}
+}*/
+/*
 void testPartitionOnly (string tag,
                   ADB::length_t inS2,
                   ADB::length_t outS2,
@@ -197,7 +203,7 @@ ADB::length_t outS=outS2/fakeRatio;
 testParaPlan<LZ4PartitionRunner>("lz4_" + tag+"_"+to_string(fakeRatio), szt, outS,safetySize , inP, outP, rmv);
  testParaPlan<Tcomp32PartitionRunner>("tcomp32_" + tag+"_"+to_string(fakeRatio), szt, outS, safetySize, inP, outP, rmv);
   testParaPlan<Tdic32PartitionRunner>("tdic32_" + tag+"_"+to_string(fakeRatio), szt, outS, safetySize, inP, outP, rmv);
-}
+}*/
 
 void testPipeLineOnly (string tag,
                   ADB::length_t inS2,
@@ -343,14 +349,12 @@ int main(int argc, char **argv) {
   gettimeofday(&tend, NULL);
   uint32_t tu = UtilityFunctions::getRunningUs(tstart, tend);
   printf("tcomp32 one core,%dus:%ld-%ld\r\n", tu, szt, t32Task.outStream->numberOfBitsUsed / 8);
-
   LZ4Task lz4Task = LZ4Task(szt, szt, szt, sourceBuf.get(), outBuf0.get());
   gettimeofday(&tstart, NULL);
   lz4Task.runForwardTask();
   gettimeofday(&tend, NULL);
   tu = UtilityFunctions::getRunningUs(tstart, tend);
   printf("lz4 one core,%dus:%ld-%ld\r\n", tu, szt, lz4Task.outStream->numberOfBitsUsed / 8);
-
   Tdic32Task d32Task = Tdic32Task(szt, szt, szt, sourceBuf.get(), outBuf0.get());
   gettimeofday(&tstart, NULL);
   d32Task.runForwardTask();
@@ -379,14 +383,13 @@ int main(int argc, char **argv) {
                                        outBuf0.get(),
                                        parVec);*/
   //testPartitionOnly(parStr,szt, szt*2, szt*2, sourceBuf.get(), outBuf0.get(),parVec);
- //testPipeLineOnly(p2Str,szt, szt*2, szt*2, sourceBuf.get(), outBuf0.get(),p2Vec);
-testFetchOnly(p2Str,szt, szt*2, szt*2, sourceBuf.get(), outBuf0.get(),p2Vec);
+ testPipeLineOnly(p2Str,szt, szt*2, szt*2, sourceBuf.get(), outBuf0.get(),p2Vec);
+//testFetchOnly(p2Str,szt, szt*2, szt*2, sourceBuf.get(), outBuf0.get(),p2Vec);
 //autoProfileLz4LL(szt, szt*2, szt*2, sourceBuf.get(), outBuf0.get());
   return 0;
 }
 /*
 int omain(int argc, char **argv) {
-
 setupLogging("benchmark.log", LOG_DEBUG);
 if (argc < 2) {
 ADB_FATAL_ERROR("ERROR !!! NO INPUT  !! \n");
@@ -397,9 +400,7 @@ int id = atoi(argv[2]);
 id = checkCpuBind(id);
 bind2Cpu(id);
 printf("bind to cpu %d\r\n", id);
-
 }
-
 std::string ltxt = "loading ";
 ltxt += argv[1];
 ADB_INFO(ltxt);
@@ -410,23 +411,19 @@ ADB_ERROR("Can not open file!");
 return 0;
 }
 ADB_INFO("open file: " + FILE_SP::autoUrl(argv[1]));
-
 memPtr_shared outBuf0 = std::shared_ptr<ADB::memCeil_t>(new ADB::memCeil_t[szt * 2],
 [](ADB::memCeil_t *p) {
 delete[] p;
 });
-
 memPtr_shared outBuf1 = std::shared_ptr<ADB::memCeil_t>(new ADB::memCeil_t[szt * 2],
 [](ADB::memCeil_t *p) {
 delete[] p;
 });
-
 TimeTestBench ttb;
 CompLibTcomp32 tLib = CompLibTcomp32(szt, szt, szt, sourceBuf.get(), outBuf1.get());
 uint32_t compedSize = ttb.runTest(tLib, ADB::COMP);
 printf("%ldus-%ld\r\n", ttb.lastTime, compedSize);
 //lz4
-
 //zlib
 CompibZlib zLib = CompLibZlib(szt, szt, szt, sourceBuf.get(), outBuf1.get());
 compedSize = ttb.runTest(zLib, ADB::COMP);
@@ -454,10 +451,8 @@ for (int i = 0; i < 64; i++) {
 CompLibLz4 lz4Lib = CompLibLz4(szt, szt, szt, sourceBuf.get(), outBuf0.get());
 compedSize = ttb.runTest(lz4Lib, ADB::COMP);
 printf("LZ4 %ld:%ld,%ld us\r\n", szt, compedSize, ttb.lastTime);
-
 //uint8_t arry[]={0xfa,0xfc,0xfd,0xfe};
 //uint8_t *tstr= (uint8_t *)arry;
-
  length_t decomSize;
  decomSize = 0;
  Tcomp32Task t32Task = Tcomp32Task(szt, szt, szt, sourceBuf.get(), outBuf1.get());
@@ -473,16 +468,13 @@ printf("LZ4 %ld:%ld,%ld us\r\n", szt, compedSize, ttb.lastTime);
  t32TaskBack.profileBackwardTask();
  t32TaskBack.printBackwardProfile();
  printf("\r\n%ld", BITS_TO_BYTES(t32TaskBack.outStream->numberOfBitsUsed));
-
  decomSize = BITS_TO_BYTES(lz4Task.outStream->numberOfBitsUsed);
  printf("\r\n%ld", decomSize);
-
  lz4Task.reset(decomSize, szt, szt, outBuf0.get(), outBuf1.get());
  lz4Task.profileBackwardTask();
  lz4Task.printBackwardProfile();
  decomSize = (lz4Task.outStream->numberOfBitsUsed) >> 3;
  printf("\r\n%ld", decomSize);
 //task0 tt0(100);
-
 return 0;
 }*/

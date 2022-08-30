@@ -1,43 +1,37 @@
 #include <PipeLines/Tcomp32PipeLine.hpp>
 //load, stage1
-void Tcomp32LoadStage::pipeLineInit()
-{
+void Tcomp32LoadStage::pipeLineInit() {
   StageParseArgs targ;
- 
-   /*for(int i=0;i<4;i++)
-    {
-      targ.remapValue=inStream->readAlignedValue<uint32_t>();
-      outputQueue->push(targ);
-    }*/
-    targ.remapValue=inStream->readAlignedValue<uint32_t>();
-      outputQueue->push(targ);
-   //midArg.remapValue = inStream->readAlignedValue<uint32_t>();
+
+  /*for(int i=0;i<4;i++)
+   {
+     targ.remapValue=inStream->readAlignedValue<uint32_t>();
+     outputQueue->push(targ);
+   }*/
+  targ.remapValue = inStream->readAlignedValue<uint32_t>();
+  outputQueue->push(targ);
+  //midArg.remapValue = inStream->readAlignedValue<uint32_t>();
   loopCnt++;
-  tuplePos=1;
-   clk.reset(); 
-  timeBase=clk.getNs();
-  printf("init load at %ld\r\n",timeBase);
- 
+  tuplePos = 1;
+  clk.reset();
+  timeBase = clk.getNs();
+  printf("init load at %ld\r\n", timeBase);
 
 }
 
 void Tcomp32LoadStage::pipeLineFunction() {
 
-  int64_t timeStampStream=tsVec[tuplePos];
-  
+  int64_t timeStampStream = tsVec[tuplePos];
 
- int64_t timeStampSys=clk.getNs()-timeBase;
- 
- while (timeStampSys<timeStampStream)
-  {
+  int64_t timeStampSys = clk.getNs() - timeBase;
+
+  while (timeStampSys < timeStampStream) {
     std::this_thread::sleep_for(std::chrono::nanoseconds(delayTime));
-     timeStampSys=clk.getNs()-timeBase;
+    timeStampSys = clk.getNs() - timeBase;
   }
-  
-  
- 
+
   tuplePos++;
-   // std::this_thread::sleep_for(std::chrono::microseconds(delayTime/1000));
+  // std::this_thread::sleep_for(std::chrono::microseconds(delayTime/1000));
 // printf("should push%lx\r\n",timeStampStream);
   StageParseArgs targ;
   /*  for(int i=0;i<3;i++)
@@ -45,10 +39,10 @@ void Tcomp32LoadStage::pipeLineFunction() {
       targ.remapValue=inStream->readAlignedValue<uint32_t>();
       outputQueue->push(targ);
     }*/
-   midArg.remapValue = inStream->readAlignedValue<uint32_t>();
+  midArg.remapValue = inStream->readAlignedValue<uint32_t>();
   loopCnt++;
- 
- /*}*/
+
+  /*}*/
 
 
 }
@@ -108,8 +102,8 @@ Tcomp32PipeLine::Tcomp32PipeLine(ADB::length_t inS,
   //prepare the queues
 
   //prepare stages
-  /*QueueStagePtr passArg01 = make_shared < rigtorp::SPSCQueue < StageParseArgs >> (stopPOS/4);
-  QueueStagePtr passArg12 = make_shared < rigtorp::SPSCQueue < StageParseArgs >> (stopPOS/4);
+  /*QueueStagePtr passArg01 = make_shared < INTELLI::SPSCQueue < StageParseArgs >> (stopPOS/4);
+  QueueStagePtr passArg12 = make_shared < INTELLI::SPSCQueue < StageParseArgs >> (stopPOS/4);
 
   s0 = make_shared<Tcomp32LoadStage>(4, nullptr, passArg01);
   s1 = make_shared<Tcomp32RemapStage>(2, passArg01, passArg12);

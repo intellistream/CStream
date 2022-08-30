@@ -1,6 +1,6 @@
 #include <PartitionRunners/LZ4PartitionRunner.hpp>
 #include <CompressionTasks/LZ4Task.hpp>
-#include <lz4/lz4.h>
+//#include <lz4/lz4.h>
 using namespace ADB;
 
 LZ4PPUnit::LZ4PPUnit(ADB::memPtr inP, length_t startByte, length_t len, length_t safeSize) :

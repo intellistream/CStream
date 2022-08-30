@@ -58,7 +58,7 @@ void AbstractThread::inlineRun() {
   int i = checkCpuBind(cpuBind);
   bind2Cpu(i);
   myPerf = ThreadPerf(i);
-  printf("bind to core %d:%d\r\n", cpuBind, i);
+  // printf("bind to core %d:%d\r\n", cpuBind, i);
   struct timeval tstart, tend;
   gettimeofday(&tstart, NULL);
   myPerf.start();
@@ -81,7 +81,6 @@ void AbstractThread::start() {
     inlineRun();
   };
   threadPtr = std::make_shared<std::thread>(fun);
-
 }
 
 void AbstractThread::detach() {

@@ -13,14 +13,14 @@ endif (UNIX AND NOT APPLE)
 
 #gcc options
 if (NOT DEFINED ENV{CC})
-    set(ENV{CC} gcc)
+    set(ENV{CC} "/usr/bin/gcc")
     message(STATUS "auto set GCC= " $ENV{CC})
 else ()
     message(STATUS "you have set CC= " $ENV{CC})
 endif ()
 #g++ options
 if (NOT DEFINED ENV{CXX})
-    set(ENV{CXX} g++)
+    set(ENV{CXX} "/usr/bin/g++")
     message(STATUS "auto set G++= " $ENV{CXX})
 else ()
     message(STATUS "you have set CXX= " $ENV{CXX})
@@ -32,7 +32,7 @@ if (NOT DEFINED ENV{METER})
 else ()
     message(STATUS "you have set Meter= " $ENV{METER})
 endif ()
-include_directories  (${PROJECT_SOURCE_DIR}/include/Utils/Meters/$ENV{METER})
+include_directories(${PROJECT_SOURCE_DIR}/include/Utils/Meters/$ENV{METER})
 #lib output, change this env if cross compile need
 if (NOT DEFINED ENV{LIB_OUT_PATH})
     set(ENV{LIB_OUT_PATH} lib)
@@ -42,8 +42,8 @@ else ()
 endif ()
 set(CMAKE_C_COMPILER $ENV{CC})
 set(CMAKE_CXX_COMPILER $ENV{CXX})
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/$ENV{CC}_build)
-set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/$ENV{CC}_build)
+#set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/$ENV{CC}_build)
+#set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/$ENV{CC}_build)
 # Custom CMake find instructions and macros
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake;${CMAKE_MODULE_PATH}")
 include(cmake/macros.cmake)
@@ -53,11 +53,11 @@ include(cmake/default.cmake)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 #gcc 10 g++10
-message(STATUS "sudo add-apt-repository 'deb http://mirrors.kernel.org/ubuntu hirsute main universe'")
-message(STATUS "sudo apt-get update")
-message(STATUS "sudo apt install gcc-11 g++-11")
-message(STATUS "sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 11")
-message(STATUS "sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 11")
+#message(STATUS "sudo add-apt-repository 'deb http://mirrors.kernel.org/ubuntu hirsute main universe'")
+#message(STATUS "sudo apt-get update")
+#message(STATUS "sudo apt install gcc-11 g++-11")
+#message(STATUS "sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-11 11")
+#message(STATUS "sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-11 11")
 
 # Set Optimization Flags
 set(CMAKE_CXX_FLAGS "-std=c++20 -Wall -Werror=return-type -Werror=unused-variable -Werror=unused-parameter")
@@ -80,12 +80,19 @@ message(STATUS "CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS_RELEASE}")
 
 
 # Log4cc
-set(Log4cxx_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/contrib) #the cross compiler may fail to find include, so just contain it
-set(Log4cxx_LIBRARY log4cxx) #to avoid x64 link when set ARM, as this will be auto-set by cross_compiker
+find_package(Log4cxx REQUIRED)
 include_directories(${Log4cxx_INCLUDE_DIR})
 set(LIBRARIES ${LIBRARIES} ${Log4cxx_LIBRARY})
-option(ENABLE_UNIT_TESTS "Enable unit tests" OFF)
-message(STATUS "Enable testing: ${ENABLE_UNIT_TESTS}")
+
+if (LOG4CXX_FOUND)
+    message(STATUS "LOG4CXX found")
+else (LOG4CXX_FOUND)
+    message(STATUS "LOG4CXX not found")
+    message(STATUS "On Ubuntu, install the package by the following command!")
+    message(STATUS "sudo apt-get install -y liblog4cxx-dev")
+endif (LOG4CXX_FOUND)
+set(Log4cxx_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/contrib) #the cross compiler may fail to find include, so just contain it
+
 
 if (ENABLE_UNIT_TESTS)
     enable_testing()
@@ -111,7 +118,7 @@ foreach (dir ${dirs})
 endforeach ()
 
 #other dependencies, temp
-set(LIBRARIES ${LIBRARIES} z lz4 gbindata)
+set(LIBRARIES ${LIBRARIES})
 message(STATUS " Libraries: ${LIBRARIES}")
 
 # Add Source Code

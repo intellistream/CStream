@@ -22,10 +22,10 @@
 #include <signal.h>
 using namespace std;
 namespace DIVERSE_METER {
-typedef struct rapl_power_unit{
-    double PU;       //power units
-    double ESU;      //energy status units
-    double TU;       //time units
+typedef struct rapl_power_unit {
+  double PU;       //power units
+  double ESU;      //energy status units
+  double TU;       //time units
 } rapl_power_unit;
 /*class:IntelMeter
 description:the entity of intel msr-based power meter, providing all function including:
@@ -33,19 +33,19 @@ E,PeakPower
 note: the meter and bus rate is about 1ms, you must run on intel x64 with modprobe msr and cpuid
 date:20211202
 */
-class IntelMeter:public AbstractMeter  {
+class IntelMeter : public AbstractMeter {
  private:
   int devFd;
- uint64_t rdmsr(int cpu, uint32_t reg);
- rapl_power_unit get_rapl_power_unit();
- double eSum=0;
+  uint64_t rdmsr(int cpu, uint32_t reg);
+  rapl_power_unit get_rapl_power_unit();
+  double eSum = 0;
 
- uint32_t maxCpu=0;
- vector <int> cpus;
- vector <double> st;
- vector <double> en;
- vector <double> count;
- rapl_power_unit power_units;
+  uint32_t maxCpu = 0;
+  vector<int> cpus;
+  vector<double> st;
+  vector<double> en;
+  vector<double> count;
+  rapl_power_unit power_units;
  public:
   IntelMeter(/* args */);
   //if exist in another name
@@ -62,7 +62,7 @@ class IntelMeter:public AbstractMeter  {
   //energy in J
   double getE();
   //peak power in mW
- // double getPeak();
+  // double getPeak();
 
   bool isValid() {
     return (devFd != -1);

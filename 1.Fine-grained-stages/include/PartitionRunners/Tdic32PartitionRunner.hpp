@@ -37,10 +37,10 @@ class Tdic32PartitionRunner : public AbstractPartitionRunner {
   Tdic32PartitionRunner(/* args */);
   ~Tdic32PartitionRunner();
   Tdic32PartitionRunner(ADB::length_t inS,
-                         ADB::length_t outS,
-                         ADB::length_t safetySize,
-                         ADB::memPtr inP,
-                         ADB::memPtr outP);
+                        ADB::length_t outS,
+                        ADB::length_t safetySize,
+                        ADB::memPtr inP,
+                        ADB::memPtr outP);
   double getIpmOfCollection() {
     return myPerf2.getIpm(inS / 2);
   }

@@ -1,0 +1,8 @@
+./benchmark sp_bin 4 LLL LL partition2
+./benchmark sp_bin 4 LLL LB partition2
+./benchmark sp_bin 4 LLL BL partition2
+./benchmark sp_bin 4 LLL BB partition2
+cp tcomp32_pipe2*.csv b/tcomp32
+cp lz4_pipe2*.csv b/lz4
+cp fake*.csv b/fake
+

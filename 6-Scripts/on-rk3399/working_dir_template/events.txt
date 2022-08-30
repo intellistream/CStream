@@ -1,0 +1,288 @@
+  branch-instructions OR branches                    [Hardware event]
+  branch-misses                                      [Hardware event]
+  bus-cycles                                         [Hardware event]
+  cache-misses                                       [Hardware event]
+  cache-references                                   [Hardware event]
+  cpu-cycles OR cycles                               [Hardware event]
+  instructions                                       [Hardware event]
+  alignment-faults                                   [Software event]
+  bpf-output                                         [Software event]
+  context-switches OR cs                             [Software event]
+  cpu-clock                                          [Software event]
+  cpu-migrations OR migrations                       [Software event]
+  dummy                                              [Software event]
+  emulation-faults                                   [Software event]
+  major-faults                                       [Software event]
+  minor-faults                                       [Software event]
+  page-faults OR faults                              [Software event]
+  task-clock                                         [Software event]
+  duration_time                                      [Tool event]
+  L1-dcache-load-misses                              [Hardware cache event]
+  L1-dcache-loads                                    [Hardware cache event]
+  L1-dcache-prefetch-misses                          [Hardware cache event]
+  L1-dcache-store-misses                             [Hardware cache event]
+  L1-dcache-stores                                   [Hardware cache event]
+  L1-icache-load-misses                              [Hardware cache event]
+  L1-icache-loads                                    [Hardware cache event]
+  branch-load-misses                                 [Hardware cache event]
+  branch-loads                                       [Hardware cache event]
+  dTLB-load-misses                                   [Hardware cache event]
+  dTLB-store-misses                                  [Hardware cache event]
+  iTLB-load-misses                                   [Hardware cache event]
+  node-loads                                         [Hardware cache event]
+  node-stores                                        [Hardware cache event]
+  br_immed_retired OR armv8_cortex_a53/br_immed_retired/ [Kernel PMU event]
+  br_mis_pred OR armv8_cortex_a53/br_mis_pred/       [Kernel PMU event]
+  br_mis_pred OR armv8_cortex_a72/br_mis_pred/       [Kernel PMU event]
+  br_pred OR armv8_cortex_a53/br_pred/               [Kernel PMU event]
+  br_pred OR armv8_cortex_a72/br_pred/               [Kernel PMU event]
+  bus_access OR armv8_cortex_a53/bus_access/         [Kernel PMU event]
+  bus_access OR armv8_cortex_a72/bus_access/         [Kernel PMU event]
+  bus_cycles OR armv8_cortex_a53/bus_cycles/         [Kernel PMU event]
+  bus_cycles OR armv8_cortex_a72/bus_cycles/         [Kernel PMU event]
+  cid_write_retired OR armv8_cortex_a53/cid_write_retired/ [Kernel PMU event]
+  cid_write_retired OR armv8_cortex_a72/cid_write_retired/ [Kernel PMU event]
+  cpu_cycles OR armv8_cortex_a53/cpu_cycles/         [Kernel PMU event]
+  cpu_cycles OR armv8_cortex_a72/cpu_cycles/         [Kernel PMU event]
+  exc_return OR armv8_cortex_a53/exc_return/         [Kernel PMU event]
+  exc_return OR armv8_cortex_a72/exc_return/         [Kernel PMU event]
+  exc_taken OR armv8_cortex_a53/exc_taken/           [Kernel PMU event]
+  exc_taken OR armv8_cortex_a72/exc_taken/           [Kernel PMU event]
+  inst_retired OR armv8_cortex_a53/inst_retired/     [Kernel PMU event]
+  inst_retired OR armv8_cortex_a72/inst_retired/     [Kernel PMU event]
+  inst_spec OR armv8_cortex_a72/inst_spec/           [Kernel PMU event]
+  l1d_cache OR armv8_cortex_a53/l1d_cache/           [Kernel PMU event]
+  l1d_cache OR armv8_cortex_a72/l1d_cache/           [Kernel PMU event]
+  l1d_cache_refill OR armv8_cortex_a53/l1d_cache_refill/ [Kernel PMU event]
+  l1d_cache_refill OR armv8_cortex_a72/l1d_cache_refill/ [Kernel PMU event]
+  l1d_cache_wb OR armv8_cortex_a53/l1d_cache_wb/     [Kernel PMU event]
+  l1d_cache_wb OR armv8_cortex_a72/l1d_cache_wb/     [Kernel PMU event]
+  l1d_tlb_refill OR armv8_cortex_a53/l1d_tlb_refill/ [Kernel PMU event]
+  l1d_tlb_refill OR armv8_cortex_a72/l1d_tlb_refill/ [Kernel PMU event]
+  l1i_cache OR armv8_cortex_a53/l1i_cache/           [Kernel PMU event]
+  l1i_cache OR armv8_cortex_a72/l1i_cache/           [Kernel PMU event]
+  l1i_cache_refill OR armv8_cortex_a53/l1i_cache_refill/ [Kernel PMU event]
+  l1i_cache_refill OR armv8_cortex_a72/l1i_cache_refill/ [Kernel PMU event]
+  l1i_tlb_refill OR armv8_cortex_a53/l1i_tlb_refill/ [Kernel PMU event]
+  l1i_tlb_refill OR armv8_cortex_a72/l1i_tlb_refill/ [Kernel PMU event]
+  l2d_cache OR armv8_cortex_a53/l2d_cache/           [Kernel PMU event]
+  l2d_cache OR armv8_cortex_a72/l2d_cache/           [Kernel PMU event]
+  l2d_cache_refill OR armv8_cortex_a53/l2d_cache_refill/ [Kernel PMU event]
+  l2d_cache_refill OR armv8_cortex_a72/l2d_cache_refill/ [Kernel PMU event]
+  l2d_cache_wb OR armv8_cortex_a53/l2d_cache_wb/     [Kernel PMU event]
+  l2d_cache_wb OR armv8_cortex_a72/l2d_cache_wb/     [Kernel PMU event]
+  ld_retired OR armv8_cortex_a53/ld_retired/         [Kernel PMU event]
+  mem_access OR armv8_cortex_a53/mem_access/         [Kernel PMU event]
+  mem_access OR armv8_cortex_a72/mem_access/         [Kernel PMU event]
+  memory_error OR armv8_cortex_a53/memory_error/     [Kernel PMU event]
+  memory_error OR armv8_cortex_a72/memory_error/     [Kernel PMU event]
+  pc_write_retired OR armv8_cortex_a53/pc_write_retired/ [Kernel PMU event]
+  st_retired OR armv8_cortex_a53/st_retired/         [Kernel PMU event]
+  sw_incr OR armv8_cortex_a53/sw_incr/               [Kernel PMU event]
+  sw_incr OR armv8_cortex_a72/sw_incr/               [Kernel PMU event]
+  ttbr_write_retired OR armv8_cortex_a72/ttbr_write_retired/ [Kernel PMU event]
+  unaligned_ldst_retired OR armv8_cortex_a53/unaligned_ldst_retired/ [Kernel PMU event]
+
+branch:
+  br_cond                                           
+       [Conditional branch executed]
+  br_cond_mispred                                   
+       [Conditional branch mispredicted]
+  br_indirect_mispred                               
+       [Indirect branch mispredicted]
+  br_indirect_mispred_addr                          
+       [Indirect branch mispredicted because of address miscompare]
+  br_indirect_spec                                  
+       [Branch speculatively executed, indirect branch]
+
+bus:
+  bus_access_rd                                     
+       [Bus access read]
+  bus_access_wr                                     
+       [Bus access write]
+
+cache:
+  ext_snoop                                         
+       [SCU Snooped data from another CPU for this CPU]
+  prefetch_linefill                                 
+       [Linefill because of prefetch]
+  prefetch_linefill_drop                            
+       [Instruction Cache Throttle occurred]
+  read_alloc                                        
+       [Read allocate mode]
+  read_alloc_enter                                  
+       [Entering read allocate mode]
+
+core imp def:
+  ase_spec                                          
+       [Operation speculatively executed, Advanced SIMD instruction]
+  br_immed_spec                                     
+       [Branch speculatively executed, immediate branch]
+  br_indirect_spec                                  
+       [Branch speculatively executed, indirect branch]
+  br_return_spec                                    
+       [Branch speculatively executed, procedure return]
+  bus_access_normal                                 
+       [Bus access, Normal]
+  bus_access_not_shared                             
+       [Bus access, not Normal, Cacheable, Shareable]
+  bus_access_periph                                 
+       [Bus access, peripheral]
+  bus_access_rd                                     
+       [Bus access read]
+  bus_access_shared                                 
+       [Bus access, Normal, Cacheable, Shareable]
+  bus_access_wr                                     
+       [Bus access write]
+  crypto_spec                                       
+       [Operation speculatively executed, Cryptographic instruction]
+  dmb_spec                                          
+       [Barrier speculatively executed, DMB]
+  dp_spec                                           
+       [Operation speculatively executed, integer data processing]
+  dsb_spec                                          
+       [Barrier speculatively executed, DSB]
+  exc_dabort                                        
+       [Exception taken, Data Abort and SError]
+  exc_fiq                                           
+       [Exception taken, FIQ]
+  exc_hvc                                           
+       [Exception taken, Hypervisor Call]
+  exc_irq                                           
+       [Exception taken, IRQ]
+  exc_pabort                                        
+       [Exception taken, Instruction Abort]
+  exc_smc                                           
+       [Exception taken, Secure Monitor Call]
+  exc_svc                                           
+       [Exception taken, Supervisor Call]
+  exc_trap_dabort                                   
+       [Exception taken, Data Abort or SError not taken locally]
+  exc_trap_fiq                                      
+       [Exception taken, FIQ not taken locally]
+  exc_trap_irq                                      
+       [Exception taken, IRQ not taken locally]
+  exc_trap_other                                    
+       [Exception taken, Other traps not taken locally]
+  exc_trap_pabort                                   
+       [Exception taken, Instruction Abort not taken locally]
+  exc_undef                                         
+       [Exception taken, Other synchronous]
+  isb_spec                                          
+       [Barrier speculatively executed, ISB]
+  l1d_cache_inval                                   
+       [L1D cache invalidate]
+  l1d_cache_rd                                      
+       [L1D cache access, read]
+  l1d_cache_refill_rd                               
+       [L1D cache refill, read]
+  l1d_cache_refill_wr                               
+       [L1D cache refill, write]
+  l1d_cache_wb_clean                                
+       [L1D cache Write-Back, cleaning and coherency]
+  l1d_cache_wb_victim                               
+       [L1D cache Write-Back, victim]
+  l1d_cache_wr                                      
+       [L1D cache access, write]
+  l1d_tlb_refill_rd                                 
+       [L1D tlb refill, read]
+  l1d_tlb_refill_wr                                 
+       [L1D tlb refill, write]
+  l2d_cache_inval                                   
+       [L2D cache invalidate]
+  l2d_cache_rd                                      
+       [L2D cache access, read]
+  l2d_cache_refill_rd                               
+       [L2D cache refill, read]
+  l2d_cache_refill_wr                               
+       [L2D cache refill, write]
+  l2d_cache_wb_clean                                
+       [L2D cache Write-Back, cleaning and coherency]
+  l2d_cache_wb_victim                               
+       [L2D cache Write-Back, victim]
+  l2d_cache_wr                                      
+       [L2D cache access, write]
+  ld_spec                                           
+       [Operation speculatively executed, load]
+  ldrex_spec                                        
+       [Exclusive operation speculatively executed, LDREX or LDX]
+  ldst_spec                                         
+       [Operation speculatively executed, load or store]
+  mem_access_rd                                     
+       [Data memory access, read]
+  mem_access_wr                                     
+       [Data memory access, write]
+  pc_write_spec                                     
+       [Operation speculatively executed, software change of the PC]
+  rc_ld_spec                                        
+       [Release consistency operation speculatively executed, Load-Acquire]
+  rc_st_spec                                        
+       [Release consistency operation speculatively executed, Store-Release]
+  st_spec                                           
+       [Operation speculatively executed, store]
+  strex_fail_spec                                   
+       [Exclusive operation speculatively executed, STREX or STX fail]
+  strex_pass_spec                                   
+       [Exclusive operation speculatively executed, STREX or STX pass]
+  unaligned_ld_spec                                 
+       [Unaligned access, read]
+  unaligned_ldst_spec                               
+       [Unaligned access]
+  unaligned_st_spec                                 
+       [Unaligned access, write]
+  vfp_spec                                          
+       [Operation speculatively executed, floating-point instruction]
+
+memory:
+  ext_mem_req                                       
+       [External memory request]
+  ext_mem_req_nc                                    
+       [Non-cacheable external memory request]
+
+other:
+  exc_fiq                                           
+       [Exception taken, FIQ]
+  exc_irq                                           
+       [Exception taken, IRQ]
+  l1d_cache_err                                     
+       [L1 Data Cache (data, tag or dirty) memory error, correctable or
+        non-correctable]
+  l1i_cache_err                                     
+       [L1 Instruction Cache (data or tag) memory error]
+  pre_decode_err                                    
+       [Pre-decode error]
+  tlb_err                                           
+       [TLB memory error]
+
+pipeline:
+  agu_dep_stall                                     
+       [Cycles there is an interlock for a load/store instruction waiting for
+        data to calculate the address in the AGU]
+  decode_dep_stall                                  
+       [Cycles the DPU IQ is empty and there is a pre-decode error being
+        processed]
+  ic_dep_stall                                      
+       [Cycles the DPU IQ is empty and there is an instruction cache miss
+        being processed]
+  iutlb_dep_stall                                   
+       [Cycles the DPU IQ is empty and there is an instruction micro-TLB miss
+        being processed]
+  ld_dep_stall                                      
+       [Cycles there is a stall in the Wr stage because of a load miss]
+  other_interlock_stall                             
+       [Cycles there is an interlock other than Advanced SIMD/Floating-point
+        instructions or load/store instruction]
+  other_iq_dep_stall                                
+       [Cycles that the DPU IQ is empty and that is not because of a recent
+        micro-TLB miss, instruction cache miss or pre-decode error]
+  simd_dep_stall                                    
+       [Cycles there is an interlock for an Advanced SIMD/Floating-point
+        operation]
+  st_dep_stall                                      
+       [Cycles there is a stall in the Wr stage because of a store]
+  stall_sb_full                                     
+       [Data Write operation that stalls the pipeline because the store buffer
+        is full]
+  rNNN                                               [Raw hardware event descriptor]
+  cpu/t1=v1[,t2=v2,t3 ...]/modifier                  [Raw hardware event descriptor]
+  mem:<addr>[/len][:access]                          [Hardware breakpoint]

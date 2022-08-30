@@ -17,34 +17,28 @@ date:20211202
 */
 class AbstractMeter {
  private:
-  
+
  public:
-  AbstractMeter(/* args */)
-  {
+  AbstractMeter(/* args */) {
 
   }
   //if exist in another name
- 
-  ~AbstractMeter()
-  {
+
+  ~AbstractMeter() {
 
   }
-  virtual void startMeter()
-  {
+  virtual void startMeter() {
 
   }
-  virtual void stopMeter()
-  {
+  virtual void stopMeter() {
 
   }
   //energy in J
-  virtual double getE()
-  {
+  virtual double getE() {
     return 0.0;
   }
   //peak power in mW
-  virtual double getPeak()
-  {
+  virtual double getPeak() {
     return 0.0;
   }
 

@@ -1,0 +1,13 @@
+#!/bin/bash
+emfun() {
+./tony_cpu set 0 $1
+./tony_cpu set 4 $1
+./tony_cpu
+}
+emfun $1
+
+#emfun 50
+
+
+    
+

@@ -1,0 +1,15 @@
+#!/bin/bash
+emfun() {
+rm -rf b_$1
+cp -R b b_$1
+}
+emfun rovio
+emfun stock
+emfun sensor
+emfun rand1k
+emfun randAll
+#emfun 50
+
+
+    
+

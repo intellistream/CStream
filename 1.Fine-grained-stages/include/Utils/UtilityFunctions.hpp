@@ -7,11 +7,7 @@
 #include <barrier>
 #include <functional>
 /* Period parameters */
-#define N 624
-#define M 397
-#define MATRIX_A 0x9908b0dfUL   /* ant vector a */
-#define UPPER_MASK 0x80000000UL /* most significant w-r bits */
-#define LOWER_MASK 0x7fffffffUL /* least significant r bits */
+
 #define TRUE 1
 #define FALSE 0
 

@@ -13,7 +13,7 @@ I,V,P,E,PeakPower
 note: the meter and bus rate is about 1ms, you must have the esp_meter.ko
 date:20211202
 */
-class EspMeter:public AbstractMeter  {
+class EspMeter : public AbstractMeter {
  private:
   int devFd;
   uint64_t accessEsp32(uint64_t cmd);

@@ -28,12 +28,12 @@ class AbstractThread {
   ThreadPerf myPerf;
   //this is the inline function
   void inlineRun(void);
-  
+
  protected:
   //this function can be derived by son classes
   virtual void threadMain(void);
   //Ipm functions
-  
+
 
   length_t runTime;
   string nameTag;

@@ -1,0 +1,23 @@
+#!/bin/bash
+emfun() {
+rm *.csv
+rm -rf b_size_$1
+cp -R b b_size_$1
+./benchmark rovio 4 LLL LL partition6_amp $1
+./benchmark rovio 4 LLL LB partition6_amp $1
+./benchmark rovio 4 LLL BL partition6_amp $1
+./benchmark rovio 4 LLL BB partition6_amp $1
+cp tcomp32*.csv b_size_$1/tcomp32
+cp lz4*.csv b_size_$1/lz4
+cp tdic32*.csv b_size_$1/tdic32
+}
+emfun 1
+emfun 2
+emfun 5
+emfun 10
+emfun 20
+#emfun 50
+
+
+    
+

@@ -18,7 +18,7 @@
 using namespace std::literals::chrono_literals;
 using namespace std;
 
-namespace rigtorp {
+namespace INTELLI {
 template<typename T, typename Allocator = std::allocator<T>>
 class SPSCQueue {
 
@@ -89,24 +89,11 @@ class SPSCQueue {
   condition_variable g_con;
 
   void wakeUpSink(void) {
-    //std::unique_lock<std::mutex> lock(g_mutex);
-
     g_con.notify_one();
-
-
-    //lock.unlock();
   }
-  void waitForSource(void) {  //  printf("enter sleep\r\n");
+  void waitForSource(void) {  //printf("enter sleep\r\n");
     std::unique_lock<std::mutex> lock(g_mutex);
     g_con.wait(lock);
-
-    // printf("end sleep\r\n");
-    // pthread_mutex_lock(&mutex);
-
-    // pthread_mutex_unlock(&mutex);
-    //
-
-
   }
   template<typename... Args>
   void emplace(Args &&...args)
@@ -262,4 +249,4 @@ class SPSCQueue {
   // writeIdxCache_
   char padding_[kCacheLineSize - sizeof(writeIdxCache_)];
 };
-} // namespace rigtorp
+} // namespace INTELLI

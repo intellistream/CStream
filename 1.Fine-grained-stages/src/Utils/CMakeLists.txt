@@ -5,6 +5,7 @@ add_sources(
         MemAddresser.cpp
         PerfTool.cpp
         Cpp11Clock.cpp
+        MTSBHashTable.cpp
 )
 add_subdirectory(PlatformCUtils)
 add_subdirectory(MultiCore)

@@ -39,7 +39,7 @@ void AbstractPipeLineStage::autoFixQueue() {
     int i = checkCpuBind(cpuBind);
     bind2Cpu(i);
     printf("switch to core %d:%d\r\n", cpuBind, i);
-    outputQueue = make_shared<rigtorp::SPSCQueue<StageParseArgs >>(ownQueSize);
+    outputQueue = make_shared<INTELLI::SPSCQueue<StageParseArgs >>(ownQueSize);
   }
 }
 bool AbstractPipeLineStage::shouldLoop() {
@@ -54,7 +54,7 @@ void AbstractPipeLineStage::threadMain() {
     stageCnt++;
   }*/
   if (hasNextStage && (!outputQueue)) {//printf("fix output que for %s\r\n",this->getName().data());
-    outputQueue = make_shared<rigtorp::SPSCQueue<StageParseArgs >>(ownQueSize);
+    outputQueue = make_shared<INTELLI::SPSCQueue<StageParseArgs >>(ownQueSize);
   }
   waitInitBar();
   if (hasPrevStage && (!inputQueue)) { // printf("fix input que for %s\r\n",this->getName().data());
@@ -65,8 +65,7 @@ void AbstractPipeLineStage::threadMain() {
   while (shouldLoop()) {
     if (hasPrevStage) //not the first stage
     {
-      if(inputQueue->empty())
-      {
+      if (inputQueue->empty()) {
         inputQueue->waitForSource();
       }
       while (!inputQueue->empty()) {

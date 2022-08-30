@@ -1,5 +1,5 @@
-# Fine-grained compression stages, including tcomp32, lz4 and tdic32
-
+# Finge-grained stages
+This is used to evaluate each stage in the paper
 ## Environment
 
 To fully use the perfTool util, please make sure that your kernel has enable the PERF_CONFIG, and you should run in root
@@ -8,11 +8,16 @@ mode.
 The perfTool is platform-independent, which means it can work in all linux with perf_events. However, since not all perf
 envents are supported in some machines, the invalid perf event will result in a 'NA' string in csv or print, but not
 block the whole program.
+
 ## Energy Meters
-So far we support two kinds of Meters: the USB Meter based on ESP32, and intel's msr meter.
-You can specify one by set environment METER to one of following value, and kindly note they should be run under root
+
+So far we support three kinds of Meters: the USB Meter based on ESP32, Ltc2946, and intel's msr meter. You can specify one by set
+environment METER to one of following value, and kindly note they should be run under root
+
 * EspMeter, you should also have the esp32_power.ko loaded
+* Ltc2946Meter, refer to the Ltc2946 Evaluation kit with IIC, please make sure that your IIC works
 * IntelMeter, you should have the cpuid and msr driver loaded
+
 ## Dependencies
 
 ### Dependencies for long term support
@@ -27,14 +32,14 @@ In a GNU compiler, there should be <br>
 
 ### Dependencies for now
 
-To support some legacy functions, we should install following dependencies:
+Since this version have not integrated the compression algorithms yet, we should install following dependencies:
 
 * The liblz4:
   `sudo apt-get install liblz4-dev`
 * The zlib:
   `sudo apt-get install zlib1g` <br>
   `sudo apt-get install zlib1g.dev` <br>
-* Other functions in gbindata:
+* Other functions in gbindata (Optional):
   `git clone -b safe https://gitee.com/tonyskyz/gbindata.git` <br>
   `cd gbindata` <br>
   `export CC=gcc` <br>
@@ -53,16 +58,7 @@ The README.md in gbindata has offered ways on cross-compile, and it is in the sa
 This software requires compilers supporting C++20, a set of gcc and g++ in version 11 is good choice. <br>
 The default compiler is `gcc` and `g++` just in your system path, However, you can set envronment varibles `CC`
 and `CXX` to set up tool chain other than gcc and g++. Please make sure that they support C++20 <br>
-For example, if you want cross-compiler for `aarch64` (e.g., the kiron970, the RK3399 etc.) with the
-toolchain `aarch64-buildroot-linux-gnu` try following: <br>
-`mkdir arm64_build && cd arm64_build` <br>
-`export CC=aarch64-buildroot-linux-gnu-gcc && export CXX=aarch64-buildroot-linux-gnu-g++` <br>
-`cmake .. && cmake ..` <br>
-`make -j4` <br>
-and all you need will be in `aarch64-buildroot-linux-gnu-gcc_build` <br>
-Note that the CC and CXX should be full name, so that something like `clang` and `gcc-11` can also be accpted. <br>
-In some systems(e.g., the ubuntu16.04), `cmake ..` may lead to inaccurate generate path, so do that twice. And the
-programs will be generated under `$ENV{CC}_build` folder. <br>
+We have provide a template a64build.sh in a64build folder, please fill and run it according to notes <br>
 
 ### Note:
 
@@ -99,7 +95,3 @@ programs will be generated under `$ENV{CC}_build` folder. <br>
 * Legacy C function for data structures : <br>
   structrue name + _ + hump style function name <br>
 
-## Temp notice
-
-From 01/09/2021, the Non-standard C functions are provided by safe branch of
-gbindata (https://gitee.com/tonyskyz/gbindata.git), please compile and install it first.

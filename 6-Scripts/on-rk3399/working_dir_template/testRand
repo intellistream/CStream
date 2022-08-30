@@ -1,0 +1,18 @@
+#!/bin/bash
+
+
+emfun() {
+./benchmark $1 4 LLL LL partition2L 1
+./benchmark $1 4 LLL LL partition2B 1
+./benchmark $1 4 LLL LL partition4  1
+./benchmark $1 4 LLL LL partition6_amp 1
+./benchmark $1 4 LLL LL partition6_smp 1
+}
+insmod *.ko
+emfun rand1k_1
+cp tcomp32_par*.csv b/tcomp32
+cp lz4_par*.csv b/lz4
+
+emfun rand1k_10
+cp tcomp32_par*.csv b_x10/tcomp32
+cp lz4_par*.csv b_x10/lz4

@@ -18,8 +18,8 @@ FakePipeLine::FakePipeLine(ADB::length_t inS,
   //prepare the queues
 
   //prepare stages
-  /*QueueStagePtr passArg01 = make_shared < rigtorp::SPSCQueue < StageParseArgs >> (stopPOS/4);
-  QueueStagePtr passArg12 = make_shared < rigtorp::SPSCQueue < StageParseArgs >> (stopPOS/4);
+  /*QueueStagePtr passArg01 = make_shared < INTELLI::SPSCQueue < StageParseArgs >> (stopPOS/4);
+  QueueStagePtr passArg12 = make_shared < INTELLI::SPSCQueue < StageParseArgs >> (stopPOS/4);
 
   s0 = make_shared<IdleLoopStage>(4, nullptr, passArg01);
  

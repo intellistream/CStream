@@ -43,41 +43,39 @@ void RemapComponent::writeArgFunction(void) {
 }
 
 RemapTdicComponent::RemapTdicComponent() {
- tdic32_initTable(tb,TDIC_COMPRESS_HASH_ENTRIES);
+  tdic32_initTable(tb, TDIC_COMPRESS_HASH_ENTRIES);
 }
 RemapTdicComponent::~RemapTdicComponent() {
 
 }
 RemapTdicComponent::RemapTdicComponent(compKey_t key,
-                               number_t preference,
-                               StageParseArgsPtr _inArg,
-                               StageParseArgsPtr _outArg,
-                               MemAddresserPtr _inStream,
-                               MemAddresserPtr _outStream)
+                                       number_t preference,
+                                       StageParseArgsPtr _inArg,
+                                       StageParseArgsPtr _outArg,
+                                       MemAddresserPtr _inStream,
+                                       MemAddresserPtr _outStream)
     : AbstractComponent(key, preference, _inArg, _outArg, _inStream, _outStream) {
   myType = ADB::TABLE;
-   tdic32_initTable(tb,TDIC_COMPRESS_HASH_ENTRIES);
+  tdic32_initTable(tb, TDIC_COMPRESS_HASH_ENTRIES);
 }
 void RemapTdicComponent::exeFunction(void) {
-  uint32_t num=inArg->remapValue;
-   uint32_t i0 = tdic32_hash(num);
-   tdic32_hash_entry_t ru = tb[i0];
-   if(ru.word==num) //found
-   {
-       value=(i0<<1)|1;
-        n = TDIC_COMPRESS_HASH_BITS+ 1;
-   }
-   else
-   {
-       value=(num<<1)|0;
-       n=33;
-        tb[i0].word=num;
-   }
-  
+  uint32_t num = inArg->remapValue;
+  uint32_t i0 = tdic32_hash(num);
+  tdic32_hash_entry_t ru = tb[i0];
+  if (ru.word == num) //found
+  {
+    value = (i0 << 1) | 1;
+    n = TDIC_COMPRESS_HASH_BITS + 1;
+  } else {
+    value = (num << 1) | 0;
+    n = 33;
+    tb[i0].word = num;
+  }
+
   // printf("%x:%d\r\n",inArg->remapValue,n);
 }
 
 void RemapTdicComponent::writeArgFunction(void) {
-  outArg->remapLength = n ;
+  outArg->remapLength = n;
   outArg->remapValue = value;
 }

@@ -8,21 +8,19 @@
 using namespace std;
 namespace ADB {
 #define INVALID_OFFSET 0XFFFFFFFF
-typedef  struct { /*uint32_t idex; */uint32_t word; } tdic32_hash_entry_t;
+typedef struct { /*uint32_t idex; */uint32_t word; } tdic32_hash_entry_t;
 
 #define TDIC_COMPRESS_HASH_BITS 11
 #define TDIC_COMPRESS_HASH_ENTRIES (1 << TDIC_COMPRESS_HASH_BITS)
 #define TDIC_COMPRESS_HASH_MULTIPLY 2654435761U
 #define TDIC_COMPRESS_HASH_SHIFT (32 - TDIC_COMPRESS_HASH_BITS)
 static inline uint32_t tdic32_hash(uint32_t x) { return (x * 2654435761U) >> (32 - TDIC_COMPRESS_HASH_BITS); }
-static inline void tdic32_initTable(tdic32_hash_entry_t *tb,uint32_t tLen)
-{
-    uint32_t i;
-    for(i=0;i<tLen;i++)
-    {
-        tb[i].word=INVALID_OFFSET;
-    }
-    tb[tdic32_hash(INVALID_OFFSET)].word=0;
+static inline void tdic32_initTable(tdic32_hash_entry_t *tb, uint32_t tLen) {
+  uint32_t i;
+  for (i = 0; i < tLen; i++) {
+    tb[i].word = INVALID_OFFSET;
+  }
+  tb[tdic32_hash(INVALID_OFFSET)].word = 0;
 }
 /*class:Tdic32LMStage
 description: The pipeline stage of loading 32-bit data and remap it
@@ -32,7 +30,7 @@ date:20211121
 
 class Tdic32LMStage : public Tcomp32StageBase {
  private:
- tdic32_hash_entry_t tb[TDIC_COMPRESS_HASH_ENTRIES];
+  tdic32_hash_entry_t tb[TDIC_COMPRESS_HASH_ENTRIES];
  public:
 
   MemAddresserPtr inStream;
@@ -41,11 +39,11 @@ class Tdic32LMStage : public Tcomp32StageBase {
   }
   Tdic32LMStage(length_t cpu, QueueStagePtr inputQueue, QueueStagePtr outputQueue) :
       Tcomp32StageBase(cpu, inputQueue, outputQueue) {
-        tdic32_initTable(tb,TDIC_COMPRESS_HASH_ENTRIES);
+    tdic32_initTable(tb, TDIC_COMPRESS_HASH_ENTRIES);
   }
   Tdic32LMStage(length_t cpu, bool _hasNextStage, AbstractPipeLineStagePtr prev, length_t _ownQueSize) :
       Tcomp32StageBase(cpu, _hasNextStage, prev, _ownQueSize) {
-         tdic32_initTable(tb,TDIC_COMPRESS_HASH_ENTRIES);
+    tdic32_initTable(tb, TDIC_COMPRESS_HASH_ENTRIES);
   }
   void pipeLineFunction();
   double getIpm() {
@@ -75,5 +73,4 @@ class Tdic32PipeLine2S : public AbstractPipeLine {
 };
 typedef std::shared_ptr<Tdic32PipeLine2S> Tdic32PipeLine2SPtr;
 }
-
 #endif

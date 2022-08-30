@@ -1,0 +1,17 @@
+#!/bin/bash
+emfun() {
+./benchmark sp_bin 1 LLL LL partition2 $1
+./benchmark sp_bin 1 LLL LB partition2 $1
+./benchmark sp_bin 1 LLL BL partition2 $1
+./benchmark sp_bin 1 LLL BB partition2 $1
+}
+rm fake*.csv
+emfun 1
+emfun 2
+emfun 5
+emfun 10
+emfun 20
+emfun 50
+cp fake*.csv l/fake/
+    
+

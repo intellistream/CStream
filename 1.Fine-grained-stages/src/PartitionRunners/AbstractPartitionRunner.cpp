@@ -2,18 +2,17 @@
 
 using namespace ADB;
 AbstractPPUnit::AbstractPPUnit(ADB::memPtr inP, length_t startByte, length_t len, length_t safeSize) {
- 
 
   memPtr tin = &inP[startByte];
   //ADB_memcpy(midInput.get(), tin, len);
   pSrc = tin;
   mySrcLen = len;
-  mySafeSize=safeSize;
+  mySafeSize = safeSize;
   midResult = std::shared_ptr<ADB::memCeil_t>(new ADB::memCeil_t[mySafeSize],
                                               [](ADB::memCeil_t *p) {
                                                 delete[] p;
                                               });
-  
+
   /* inStream = make_shared<MemAddresser>(tin, endByte-startByte+1);
    outStream= make_shared<MemAddresser>(midResult.get(), safeSize);*/
 

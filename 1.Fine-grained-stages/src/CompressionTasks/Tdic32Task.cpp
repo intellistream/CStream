@@ -9,10 +9,10 @@ Tdic32Task::Tdic32Task(/* args */) {
 Tdic32Task::~Tdic32Task() {
 }
 Tdic32Task::Tdic32Task(ADB::length_t inS,
-                         ADB::length_t outS,
-                         ADB::length_t safetySize,
-                         ADB::memPtr inP,
-                         ADB::memPtr outP)
+                       ADB::length_t outS,
+                       ADB::length_t safetySize,
+                       ADB::memPtr inP,
+                       ADB::memPtr outP)
     : AbstractTask(inS, outS, safetySize, inP, outP) {
   // the forward (compression) components
   StageParseArgsPtr p0 = make_shared<StageParseArgs>(0xfffffffe, 0);
@@ -28,7 +28,7 @@ Tdic32Task::Tdic32Task(ADB::length_t inS,
   WriteMemComponentPtr comp_s2_write = make_shared<WriteMemComponent>(3, 1, p2, p3, inStream, outStream);
   comp_s2_write->setName("tdic32-write");
   addForwardComponent(comp_s2_write);
-  
+
   //myComponent->push_back(readComp);
 
 }

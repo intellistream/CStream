@@ -1,7 +1,7 @@
 add_subdirectory(CommonData)
 add_subdirectory(Utils)
+add_subdirectory(CoProcessing)
 add_subdirectory(CompressionQuery)
-add_subdirectory(CompLibs)
 add_subdirectory(CompressionComponents)
 add_subdirectory(CompressionTasks)
 add_subdirectory(PipeLines)

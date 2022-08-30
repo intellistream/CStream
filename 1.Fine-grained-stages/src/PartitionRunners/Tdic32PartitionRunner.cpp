@@ -17,10 +17,10 @@ Tdic32PartitionRunner::Tdic32PartitionRunner(/* args */) : AbstractPartitionRunn
 
 }
 Tdic32PartitionRunner::Tdic32PartitionRunner(ADB::length_t inS,
-                                               ADB::length_t outS,
-                                               ADB::length_t safetySize,
-                                               ADB::memPtr inP,
-                                               ADB::memPtr outP)
+                                             ADB::length_t outS,
+                                             ADB::length_t safetySize,
+                                             ADB::memPtr inP,
+                                             ADB::memPtr outP)
     : AbstractPartitionRunner(inS, outS, safetySize, inP, outP) {
   outStream = make_shared<MemAddresser>(outP, outS);
 }

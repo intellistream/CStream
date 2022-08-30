@@ -92,8 +92,8 @@ LZ4PipeLine::LZ4PipeLine(ADB::length_t inS,
   //prepare the queues
 
   //prepare stages
-  /*QueueStagePtr passArg01 = make_shared < rigtorp::SPSCQueue < StageParseArgs >> (stopPOS);
-  QueueStagePtr passArg12 = make_shared < rigtorp::SPSCQueue < StageParseArgs >> (stopPOS);
+  /*QueueStagePtr passArg01 = make_shared < INTELLI::SPSCQueue < StageParseArgs >> (stopPOS);
+  QueueStagePtr passArg12 = make_shared < INTELLI::SPSCQueue < StageParseArgs >> (stopPOS);
 
   s0 = make_shared<LZ4LoadStage>(4, nullptr, passArg01);
   s1 = make_shared<LZ4WriteStage>(2, passArg01, nullptr);*/

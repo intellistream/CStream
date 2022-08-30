@@ -9,11 +9,11 @@
 #include <MeterHelp.hpp>
 using namespace std;
 using namespace ADB;
-using namespace rigtorp;
+using namespace INTELLI;
 namespace ADB {
-typedef std::shared_ptr<std::barrier<>> BarrierPtr;
+
 typedef std::shared_ptr<SafeQueue<StageParseArgs>> SafeQueueStagePtr;
-typedef std::shared_ptr<rigtorp::SPSCQueue<StageParseArgs>> QueueStagePtr;
+typedef std::shared_ptr<INTELLI::SPSCQueue<StageParseArgs>> QueueStagePtr;
 //typedef std::shared_ptr<std::queue<StageParseArgs>> QueueStagePtr;
 /*class:AbstractPipeLineStage
 description: The base class of pipeline stage
@@ -29,13 +29,12 @@ class AbstractPipeLineStage : public AbstractThread {
   length_t stageNo, stageCnt;
   void threadMain();
   bool isLoaded;
-  
+
   /*the pipeline interface function used for derived classed, needless to push & pop the que
   however, if under different behavior of queues, please rewrite the threadMain()*/
   virtual void pipeLineFunction();
-  virtual void pipeLineInit()
-  {
-    
+  virtual void pipeLineInit() {
+
   }
   /* the condition function of wether continue*/
   virtual bool shouldLoop();
@@ -117,25 +116,21 @@ class AbstractPipeLine {
     mainCpu = cpu;
   }
   //get the specific stage
-  AbstractPipeLineStagePtr getStage(size_t n)
-  {
-    if(n<=stages.size())
-    {
+  AbstractPipeLineStagePtr getStage(size_t n) {
+    if (n <= stages.size()) {
       return stages[n];
     }
     return nullptr;
   }
-  AbstractPipeLineStagePtr getStage(string name)
-  {  size_t i;
-     size_t n=stages.size();
-    for(i=0;i<n;i++)
-    {
-      if(stages[i]->getName()==name)
-      {
+  AbstractPipeLineStagePtr getStage(string name) {
+    size_t i;
+    size_t n = stages.size();
+    for (i = 0; i < n; i++) {
+      if (stages[i]->getName() == name) {
         return stages[i];
       }
     }
-   
+
     return nullptr;
   }
 };

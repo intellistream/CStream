@@ -1,0 +1,8 @@
+./benchmark sp_bin 0 LLL LL partition2
+./benchmark sp_bin 0 LLB LL partition2
+./benchmark sp_bin 0 LBL LL partition2
+./benchmark sp_bin 0 BLL LL partition2
+./benchmark sp_bin 0 BBL LL partition2
+./benchmark sp_bin 0 BLB LL partition2
+./benchmark sp_bin 0 LBB LL partition2
+

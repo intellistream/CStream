@@ -28,7 +28,7 @@ class AbstractPPUnit : public AbstractThread {
   virtual void puFunction() {}
   void threadMain() {
     // create inside the thread
-  
+
     puFunction();
     //numberOfBits=outStream->numberOfBitsUsed;
   }

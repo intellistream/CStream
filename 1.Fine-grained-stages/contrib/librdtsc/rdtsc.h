@@ -12,6 +12,6 @@ uint64_t rdtsc_ms(uint64_t before, uint64_t after);
 uint64_t rdtsc_s(uint64_t before, uint64_t after);
 
 #ifdef __cplusplus
- }
-#endif   
+}
+#endif
 #endif

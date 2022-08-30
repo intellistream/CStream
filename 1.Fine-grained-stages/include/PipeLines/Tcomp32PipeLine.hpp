@@ -62,39 +62,35 @@ date:202001112
 */
 class Tcomp32LoadStage : public Tcomp32StageBase {
  private:
-  int64_t timeBase=0;
+  int64_t timeBase = 0;
   Cpp11Clock clk;
-  vector <int64_t> tsVec;
-  uint64_t tuplePos=0;
+  vector<int64_t> tsVec;
+  uint64_t tuplePos = 0;
  protected:
- void pipeLineInit(void);
- uint32_t delayTime=0;
+  void pipeLineInit(void);
+  uint32_t delayTime = 0;
  public:
-  void setInStream(MemAddresserPtr _ins)
-  { 
-    inStream=_ins;
-     size_t tupleCnt=inStream->numberOfBitsAllocated/32;
-     printf("tupleCnt=%d\r\n",tupleCnt);
-  tsVec=vector <int64_t>(tupleCnt);
+  void setInStream(MemAddresserPtr _ins) {
+    inStream = _ins;
+    size_t tupleCnt = inStream->numberOfBitsAllocated / 32;
+    printf("tupleCnt=%d\r\n", tupleCnt);
+    tsVec = vector<int64_t>(tupleCnt);
   }
-  void setDelayTime(uint64_t dt)
-  {
+  void setDelayTime(uint64_t dt) {
     size_t i;
-    for(i=0;i<tsVec.size();i++)
-    {
-      tsVec[i]=i*dt;
-     //printf("%lx\r\n", tsVec[i]);
+    for (i = 0; i < tsVec.size(); i++) {
+      tsVec[i] = i * dt;
+      //printf("%lx\r\n", tsVec[i]);
     }
-    printf("allow max t=%ld us\r\n",dt*tsVec.size()/1000);
-    delayTime=dt;
+    printf("allow max t=%ld us\r\n", dt * tsVec.size() / 1000);
+    delayTime = dt;
   }
   MemAddresserPtr inStream;
-  
+
   ~Tcomp32LoadStage() {}
   Tcomp32LoadStage(length_t cpu, QueueStagePtr inputQueue, QueueStagePtr outputQueue) :
       Tcomp32StageBase(cpu, inputQueue, outputQueue) {
-          
-   
+
   }
   Tcomp32LoadStage(length_t cpu, bool _hasNextStage, AbstractPipeLineStagePtr prev, length_t _ownQueSize) :
       Tcomp32StageBase(cpu, _hasNextStage, prev, _ownQueSize) {
@@ -162,8 +158,7 @@ class Tcomp32PipeLine : public AbstractPipeLine {
  public:
   MemAddresserPtr inStream, outStream;
   Tcomp32PipeLine(/* args */);
-   void setPar(uint32_t delay)
-  {
+  void setPar(uint32_t delay) {
     s0->setDelayTime(delay);
   }
   //void reset(ADB::length_t inS, ADB::length_t outS, ADB::length_t safetySize, ADB::memPtr inP, ADB::memPtr outP);

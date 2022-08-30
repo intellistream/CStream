@@ -17,33 +17,31 @@ date:20211207
 
 class Tdic32FeedStage : public Tcomp32StageBase {
  private:
- uint32_t tupleLenU32; // in 32-bit word
- //in us
- uint32_t maxSleep=1000;
- uint32_t minSleep=10;
+  uint32_t tupleLenU32; // in 32-bit word
+  //in us
+  uint32_t maxSleep = 1000;
+  uint32_t minSleep = 10;
  public:
-MemAddresserPtr inStream;
-  
+  MemAddresserPtr inStream;
+
   ~Tdic32FeedStage() {
 
   }
   Tdic32FeedStage(length_t cpu, QueueStagePtr inputQueue, QueueStagePtr outputQueue) :
       Tcomp32StageBase(cpu, inputQueue, outputQueue) {
-        //tdic32_initTable(tb,TDIC_COMPRESS_HASH_ENTRIES);
+    //tdic32_initTable(tb,TDIC_COMPRESS_HASH_ENTRIES);
   }
   Tdic32FeedStage(length_t cpu, bool _hasNextStage, AbstractPipeLineStagePtr prev, length_t _ownQueSize) :
       Tcomp32StageBase(cpu, _hasNextStage, prev, _ownQueSize) {
-       //  tdic32_initTable(tb,TDIC_COMPRESS_HASH_ENTRIES);
+    //  tdic32_initTable(tb,TDIC_COMPRESS_HASH_ENTRIES);
   }
-  void setSleep(uint32_t mins,uint32_t maxs)
-  {
-    minSleep=mins;
-    maxSleep=maxs;
+  void setSleep(uint32_t mins, uint32_t maxs) {
+    minSleep = mins;
+    maxSleep = maxs;
   }
-  void setTupleLen(uint32_t tl)
-  {
-    tupleLenU32=tl;
-    
+  void setTupleLen(uint32_t tl) {
+    tupleLenU32 = tl;
+
   }
   void pipeLineFunction();
   double getIpm() {
@@ -59,7 +57,7 @@ date:20211207
 
 class Tdic32MapStage : public Tcomp32StageBase {
  private:
- tdic32_hash_entry_t tb[TDIC_COMPRESS_HASH_ENTRIES];
+  tdic32_hash_entry_t tb[TDIC_COMPRESS_HASH_ENTRIES];
  public:
 
   MemAddresserPtr inStream;
@@ -68,11 +66,11 @@ class Tdic32MapStage : public Tcomp32StageBase {
   }
   Tdic32MapStage(length_t cpu, QueueStagePtr inputQueue, QueueStagePtr outputQueue) :
       Tcomp32StageBase(cpu, inputQueue, outputQueue) {
-        tdic32_initTable(tb,TDIC_COMPRESS_HASH_ENTRIES);
+    tdic32_initTable(tb, TDIC_COMPRESS_HASH_ENTRIES);
   }
   Tdic32MapStage(length_t cpu, bool _hasNextStage, AbstractPipeLineStagePtr prev, length_t _ownQueSize) :
       Tcomp32StageBase(cpu, _hasNextStage, prev, _ownQueSize) {
-         tdic32_initTable(tb,TDIC_COMPRESS_HASH_ENTRIES);
+    tdic32_initTable(tb, TDIC_COMPRESS_HASH_ENTRIES);
   }
   void pipeLineFunction();
   double getIpm() {
@@ -80,7 +78,6 @@ class Tdic32MapStage : public Tcomp32StageBase {
   }
 };
 typedef std::shared_ptr<Tdic32MapStage> Tdic32MapStagePtr;
-
 
 /*class:Tdic32PipeLine3s
 description: The whole pipeline for tdic32, IN 3 stages including the data feeding
@@ -99,8 +96,7 @@ class Tdic32PipeLine3S : public AbstractPipeLine {
   Tdic32PipeLine3S(/* args */);
   //void reset(ADB::length_t inS, ADB::length_t outS, ADB::length_t safetySize, ADB::memPtr inP, ADB::memPtr outP);
   void execute();
-    void setPar(uint32_t delay)
-  {
+  void setPar(uint32_t delay) {
     s0->setDelayTime(delay);
   }
   ~Tdic32PipeLine3S();
@@ -108,22 +104,19 @@ class Tdic32PipeLine3S : public AbstractPipeLine {
 };
 typedef std::shared_ptr<Tdic32PipeLine3S> Tdic32PipeLine3SPtr;
 
-
 class Tdic32PipeLineOnlyFeed : public AbstractPipeLine {
  private:
   /* data */
   ADB::length_t safetySize, stopPOS;
   Tcomp32LoadStagePtr s0;
-  
+
   QueueStagePtr passArg01, passArg12;
  public:
   MemAddresserPtr inStream, outStream;
 
-  
   //void reset(ADB::length_t inS, ADB::length_t outS, ADB::length_t safetySize, ADB::memPtr inP, ADB::memPtr outP);
   void execute();
-  void setPar(uint32_t delay)
-  {
+  void setPar(uint32_t delay) {
     s0->setDelayTime(delay);
   }
   /*[
@@ -132,8 +125,12 @@ class Tdic32PipeLineOnlyFeed : public AbstractPipeLine {
     s0->setTupleLen(tupleLen);
   ]*/
   ~Tdic32PipeLineOnlyFeed();
- Tdic32PipeLineOnlyFeed();
-  Tdic32PipeLineOnlyFeed(ADB::length_t inS, ADB::length_t outS, ADB::length_t safetySize, ADB::memPtr inP, ADB::memPtr outP);
+  Tdic32PipeLineOnlyFeed();
+  Tdic32PipeLineOnlyFeed(ADB::length_t inS,
+                         ADB::length_t outS,
+                         ADB::length_t safetySize,
+                         ADB::memPtr inP,
+                         ADB::memPtr outP);
 };
 typedef std::shared_ptr<Tdic32PipeLineOnlyFeed> Tdic32PipeLineOnlyFeedPtr;
 }

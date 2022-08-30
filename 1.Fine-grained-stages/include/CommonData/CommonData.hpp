@@ -7,6 +7,7 @@
 #include <stdint.h>
 #include <memory>
 #include <Utils/Logger.hpp>
+#include <barrier>
 namespace ADB {
 typedef int64_t length_t;
 typedef uint32_t number_t;
@@ -61,5 +62,8 @@ typedef std::shared_ptr<ADB::memCeil_t> memPtr_shared;
 #endif
 //machine specific defines
 #define MACHINE_L1_BYTES 32*1024
+#define LITTLE_CORE_BASE 0
+#define BIG_CORE_BASE 4
+typedef std::shared_ptr<std::barrier<>> BarrierPtr;
 }
 #endif
