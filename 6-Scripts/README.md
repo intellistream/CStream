@@ -5,4 +5,4 @@ and you have installed the meter driver, we provide a template called genFolder 
 * for pc, you may wish to copy the resulting csv from rk3399 and draw results, we provide template for line and bar, and pleas change the
 file name of csv in genTogether.py for different evaluation. The python version for them is 3.9, and we require the matplotlibpy.
 # Important Notes
-Make sure all configuration files in working_dir_template is loaded correctly, or you can not set up or run
+Please decompress the working_dir_template.tar.xz in your targeted platform first, this folder contains other necessary configurations you may need

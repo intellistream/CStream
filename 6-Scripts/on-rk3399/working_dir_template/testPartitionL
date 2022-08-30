@@ -1,9 +1,0 @@
-./benchmark sp_bin 0 LLL LL partition2L
-./benchmark sp_bin 0 LLL LL partition2B
-./benchmark sp_bin 0 LLL LL partition4
-./benchmark sp_bin 0 LLL LL partition6_smp
-./benchmark sp_bin 0 LLL LL partition6_amp
-./benchmark sp_bin 0 LLL LL partition6_smpr
-./benchmark sp_bin 0 LLL LL partition6_ampr
-cp tcomp32_par*.csv l/tcomp32
-cp lz4_par*.csv l/lz4

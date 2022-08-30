@@ -1,5 +1,0 @@
-#!/bin/bash
-./benchmark sp_bin 4 LLL BB partition6_smp
-cp tcomp32*.csv b/tcomp32
-cp lz4*.csv b/lz4
-    
